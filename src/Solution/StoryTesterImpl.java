@@ -17,23 +17,27 @@ public class StoryTesterImpl implements StoryTester {
         if (testClass == null) {
             throw new IllegalArgumentException();
         }
-        checkStory(story, testClass);
+        checkStory(story, testClass,null);
     }
-
     @Override
     public void testOnNestedClasses(String story, Class<?> testClass) throws Exception {
+        testOnNestedClassesAux(story,testClass,null);
+    }
+
+    public void testOnNestedClassesAux(String story, Class<?> testClass,Object dady) throws Exception {
         if (testClass == null) {
             throw new IllegalArgumentException();
         }
         try {
-            checkStory(story, testClass);
+            checkStory(story, testClass,dady);
         } catch (GivenNotFoundException e1) {
 
-            for (Class subClass : (testClass.getClasses())) {
+            for (Class innerClass : (testClass.getClasses())) {
                 try {
                     //for each sub class, try to run the story REGULARLY until successful
-                    //or until all the subclass had run out.
-                    testOnNestedClasses(story, subClass);
+                    //or until all the innerClass had run out.
+                    Object newObject = createObject(testClass,dady);
+                    testOnNestedClassesAux(story, innerClass,newObject);
                 } catch (GivenNotFoundException e2) {
                     continue;
                 }
@@ -172,10 +176,11 @@ public class StoryTesterImpl implements StoryTester {
      * @param testClass the test class given from user, includes all the methods with annotations
      * @throws Exception //TODO
      */
-    private static void checkStory(String story, Class<?> testClass) throws Exception {
+    private static void checkStory(String story, Class<?> testClass,Object dady) throws Exception {
         //Object objTest = testClass.getEnclosingConstructor()
         //TODO: find the Given from the normal class
-        Object objTest = testClass.getConstructor().newInstance();
+        Object objTest = createObject(testClass,dady);
+
         Object objBackUp = objTest;
         int thenFailedCounter = 0;
         String firstThenFailed = "";
@@ -193,7 +198,7 @@ public class StoryTesterImpl implements StoryTester {
                         ||
                         (lastLegalSentence.getType() == LegalSentence.Type.Then
                                 && (currLegalSentence.getType() == LegalSentence.Type.When))) {
-                    objBackUp = makeBackUp(objTest, testClass);
+//                    objBackUp = makeBackUp(objTest, testClass);
                 }
             }
             boolean methodThenSuccessFlag = false;//used for Then sentence with "or"'s
@@ -231,7 +236,7 @@ public class StoryTesterImpl implements StoryTester {
                 }
                 thenFailedCounter++;
                 //Restore from backUp:
-                objTest = objBackUp;
+        //        objTest = objBackUp;
             }
             lastLegalSentence = currLegalSentence;
         }
@@ -239,6 +244,18 @@ public class StoryTesterImpl implements StoryTester {
             throw new StoryTestExceptionImpl(firstThenFailed, firstThenFailedExpected,
                     firstThenFailedActual, thenFailedCounter);
         }
+    }
+    private static Object createObject(Class<?> testClass, Object dady) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        Object objTest;
+        if(dady == null)
+        {
+            objTest  = testClass.getConstructor().newInstance();
+        }
+        else
+        {
+            objTest = testClass.getConstructor(dady.getClass()).newInstance(dady);
+        }
+        return  objTest;
     }
 }
 
