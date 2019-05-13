@@ -146,10 +146,12 @@ public class StoryTesterImpl implements StoryTester {
      * @return the new backUp object
      * @throws Exception //TODO
      */
-    private static Object makeBackUp(Object objTest, Class<?> testClass) throws Exception {
-        Object backUp = objTest.getClass().getConstructor().newInstance();
+    private static Object makeBackUp(Object objTest, Class<?> testClass, Object sugarDady)
+            throws Exception {
+        Object backUp = createObject(testClass,sugarDady);
         for (Field fFrom : objTest.getClass().getDeclaredFields()) {
             Object fieldTemp = new Object();
+            fFrom.setAccessible(true);
             //Clone:
             if (fFrom.get(objTest) instanceof Cloneable) {//TODO:
                 Method cloneMethod = fFrom.getType().getDeclaredMethod("clone");
@@ -163,7 +165,8 @@ public class StoryTesterImpl implements StoryTester {
                     fieldTemp = fFrom.get(objTest);
                 }
             }
-            backUp.getClass().getField(fFrom.getName()).set(backUp, fieldTemp);
+            fFrom.set(backUp,fieldTemp);
+           // backUp.getClass().getField(fFrom.getName()).set(backUp, fieldTemp);
         }
         return backUp;
     }
@@ -197,7 +200,7 @@ public class StoryTesterImpl implements StoryTester {
                         ||
                         (lastLegalSentence.getType() == LegalSentence.Type.Then
                                 && (currLegalSentence.getType() == LegalSentence.Type.When))) {
-//                    objBackUp = makeBackUp(objTest, testClass);
+                    objBackUp = makeBackUp(objTest, testClass, sugarDady);
                 }
             }
             boolean methodThenSuccessFlag = false;//used for Then sentence with "or"'s
@@ -235,7 +238,7 @@ public class StoryTesterImpl implements StoryTester {
                 }
                 thenFailedCounter++;
                 //Restore from backUp:
-        //        objTest = objBackUp;
+                objTest = objBackUp;
             }
             lastLegalSentence = currLegalSentence;
         }
