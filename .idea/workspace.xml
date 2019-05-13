@@ -2,32 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2438d9d6-c3c0-4020-8ac0-3e70e5e22d27" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/OOP_3/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OOP_3/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/OOP_3/Provided/GivenNotFoundException.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OOP_3/Provided/GivenNotFoundException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/OOP_3/Provided/StoryTestException.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OOP_3/Provided/StoryTestException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/OOP_3/Provided/StoryTester.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OOP_3/Provided/StoryTester.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/OOP_3/Provided/ThenNotFoundException.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OOP_3/Provided/ThenNotFoundException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/OOP_3/Provided/WhenNotFoundException.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OOP_3/Provided/WhenNotFoundException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/OOP_3/Provided/WordNotFoundException.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OOP_3/Provided/WordNotFoundException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/OOP_3/Solution/Given.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OOP_3/Solution/Given.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/OOP_3/Solution/LegalSentence$Type.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OOP_3/Solution/LegalSentence$Type.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/OOP_3/Solution/LegalSentence.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OOP_3/Solution/LegalSentence.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/OOP_3/Solution/Story.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OOP_3/Solution/Story.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/OOP_3/Solution/StoryTestExceptionImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OOP_3/Solution/StoryTestExceptionImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/OOP_3/Solution/StoryTesterImpl$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OOP_3/Solution/StoryTesterImpl$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/OOP_3/Solution/StoryTesterImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OOP_3/Solution/StoryTesterImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/OOP_3/Solution/Then.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OOP_3/Solution/Then.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/OOP_3/Solution/When.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OOP_3/Solution/When.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/OOP_3/tests/Dog.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OOP_3/tests/Dog.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/OOP_3/tests/DogStoryDerivedTest$InnerClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OOP_3/tests/DogStoryDerivedTest$InnerClass.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/OOP_3/tests/DogStoryDerivedTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OOP_3/tests/DogStoryDerivedTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/OOP_3/tests/DogStoryTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OOP_3/tests/DogStoryTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/OOP_3/tests/DogTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OOP_3/tests/DogTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/OOP_3/tests/test$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OOP_3/tests/test$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/OOP_3/tests/test.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OOP_3/tests/test.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Solution/StoryTesterImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Solution/StoryTesterImpl.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -39,11 +13,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Solution/StoryTesterImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="325">
-              <caret line="243" column="86" lean-forward="true" selection-start-line="243" selection-start-column="86" selection-end-line="243" selection-end-column="86" />
+            <state relative-caret-position="243">
+              <caret line="256" column="24" lean-forward="true" selection-start-line="256" selection-start-column="24" selection-end-line="256" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/tests/test.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="278">
+              <caret line="54" selection-start-line="54" selection-end-line="54" />
             </state>
           </provider>
         </entry>
@@ -124,9 +107,11 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>subClass</find>
+      <find>dady</find>
     </findStrings>
     <replaceStrings>
       <replace>innerClass</replace>
+      <replace>sugarDady</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -195,7 +180,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557763587990" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557764015956" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -294,20 +279,11 @@
       <option name="presentableId" value="Default" />
       <updated>1557731489217</updated>
       <workItem from="1557731494450" duration="4628000" />
-      <workItem from="1557762566762" duration="1021000" />
+      <workItem from="1557762566762" duration="1569000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="tests_in_OOP_3 - 2019.05.13 at 13h 20m 06s.xml">
-      <configuration name="tests in OOP_3" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="tests_in_OOP_3 - 2019.05.13 at 13h 20m 42s.xml">
-      <configuration name="tests in OOP_3" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="tests_in_OOP_3 - 2019.05.13 at 13h 20m 57s.xml">
-      <configuration name="tests in OOP_3" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="tests_in_OOP_3 - 2019.05.13 at 13h 21m 14s.xml">
       <configuration name="tests in OOP_3" configurationId="JUnit" />
     </history-entry>
@@ -329,13 +305,21 @@
     <history-entry file="tests_in_OOP_3 - 2019.05.13 at 19h 06m 14s.xml">
       <configuration name="tests in OOP_3" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="tests_in_OOP_3 - 2019.05.13 at 19h 11m 42s.xml">
+      <configuration name="tests in OOP_3" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="tests_in_OOP_3 - 2019.05.13 at 19h 12m 44s.xml">
+      <configuration name="tests in OOP_3" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="tests_in_OOP_3 - 2019.05.13 at 19h 13m 37s.xml">
+      <configuration name="tests in OOP_3" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5649000" />
+    <option name="totallyTimeSpent" value="6197000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1549" height="837" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25285044" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -346,7 +330,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32956153" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3281471" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3281471" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39943343" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -376,7 +360,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Solution/StoryTesterImpl.java</url>
-          <line>227</line>
+          <line>221</line>
           <properties />
           <option name="timeStamp" value="12" />
         </line-breakpoint>
@@ -388,13 +372,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="44">
           <caret line="3" column="40" selection-start-line="3" selection-start-column="40" selection-end-line="3" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tests/test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="54" selection-start-line="54" selection-end-line="54" />
         </state>
       </provider>
     </entry>
@@ -565,8 +542,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Solution/StoryTesterImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="243" column="86" lean-forward="true" selection-start-line="243" selection-start-column="86" selection-end-line="243" selection-end-column="86" />
+        <state relative-caret-position="243">
+          <caret line="256" column="24" lean-forward="true" selection-start-line="256" selection-start-column="24" selection-end-line="256" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tests/test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="54" selection-start-line="54" selection-end-line="54" />
         </state>
       </provider>
     </entry>

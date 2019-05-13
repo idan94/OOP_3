@@ -24,19 +24,19 @@ public class StoryTesterImpl implements StoryTester {
         testOnNestedClassesAux(story,testClass,null);
     }
 
-    public void testOnNestedClassesAux(String story, Class<?> testClass,Object dady) throws Exception {
+    public void testOnNestedClassesAux(String story, Class<?> testClass,Object sugarDady) throws Exception {
         if (testClass == null) {
             throw new IllegalArgumentException();
         }
         try {
-            checkStory(story, testClass,dady);
+            checkStory(story, testClass,sugarDady);
         } catch (GivenNotFoundException e1) {
 
             for (Class innerClass : (testClass.getClasses())) {
                 try {
                     //for each sub class, try to run the story REGULARLY until successful
                     //or until all the innerClass had run out.
-                    Object newObject = createObject(testClass,dady);
+                    Object newObject = createObject(testClass,sugarDady);
                     testOnNestedClassesAux(story, innerClass,newObject);
                 } catch (GivenNotFoundException e2) {
                     continue;
@@ -176,11 +176,10 @@ public class StoryTesterImpl implements StoryTester {
      * @param testClass the test class given from user, includes all the methods with annotations
      * @throws Exception //TODO
      */
-    private static void checkStory(String story, Class<?> testClass,Object dady) throws Exception {
+    private static void checkStory(String story, Class<?> testClass,Object sugarDady) throws Exception {
         //Object objTest = testClass.getEnclosingConstructor()
         //TODO: find the Given from the normal class
-        Object objTest = createObject(testClass,dady);
-
+        Object objTest = createObject(testClass,sugarDady);
         Object objBackUp = objTest;
         int thenFailedCounter = 0;
         String firstThenFailed = "";
@@ -245,15 +244,15 @@ public class StoryTesterImpl implements StoryTester {
                     firstThenFailedActual, thenFailedCounter);
         }
     }
-    private static Object createObject(Class<?> testClass, Object dady) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    private static Object createObject(Class<?> testClass, Object sugarDady) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         Object objTest;
-        if(dady == null)
+        if(sugarDady == null)
         {
             objTest  = testClass.getConstructor().newInstance();
         }
         else
         {
-            objTest = testClass.getConstructor(dady.getClass()).newInstance(dady);
+            objTest = testClass.getConstructor(sugarDady.getClass()).newInstance(sugarDady);
         }
         return  objTest;
     }
