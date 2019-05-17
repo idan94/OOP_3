@@ -12,8 +12,8 @@ public class StoryTestExceptionImpl extends StoryTestException {
 
     public StoryTestExceptionImpl(String sentence, List<String> storyExpected, List<String> testResult, int numFail) {
         this.sentence = sentence;
-        this.storyExpected = storyExpected;
-        this.testResult = testResult;
+        this.storyExpected = storyExpected; //expected from program
+        this.testResult = testResult;   //actual value
         this.numFail = numFail;
     }
 

@@ -9,14 +9,12 @@ public class Dog {
 		this.hoursCleaningFloors=0;
 		this.peeOnFloor = false;
 	}
-	
 	public void notTakenForAWalk(int hours) {
 		if(hours>8&& this.age > 5){
 			this.peeOnFloor=true;
 			hoursCleaningFloors=0;
 		}
 	}
-	
 	public void hoursCleaningFloors(int hours) {
 		if(this.peeOnFloor){
 			this.hoursCleaningFloors=this.hoursCleaningFloors+hours;
@@ -26,7 +24,6 @@ public class Dog {
 			this.hoursCleaningFloors=0;
 		}
 	}
-	
 	public String houseCondition() {
 		if(this.peeOnFloor){
 			return "smelly";

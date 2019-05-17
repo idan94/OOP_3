@@ -148,15 +148,15 @@ public class StoryTesterImpl implements StoryTester {
      */
     private static Object makeBackUp(Object objTest, Class<?> testClass, Object sugarDady)
             throws Exception {
-        Object backUp = createObject(testClass,sugarDady);
+        Object backUp = createObject(testClass,sugarDady);//TODO: change name
         for (Field fFrom : objTest.getClass().getDeclaredFields()) {
-            Object fieldTemp = new Object();
+            Object fieldTemp;
             fFrom.setAccessible(true);
             //Clone:
             if (fFrom.get(objTest) instanceof Cloneable) {//TODO:
                 Method cloneMethod = fFrom.getType().getDeclaredMethod("clone");
                 cloneMethod.setAccessible(true);
-                cloneMethod.invoke(objTest);
+                fieldTemp = cloneMethod.invoke(fFrom.get(objTest));
                 //Copy constructor:
             } else {
                 try {
@@ -201,6 +201,7 @@ public class StoryTesterImpl implements StoryTester {
                         (lastLegalSentence.getType() == LegalSentence.Type.Then
                                 && (currLegalSentence.getType() == LegalSentence.Type.When))) {
                     objBackUp = makeBackUp(objTest, testClass, sugarDady);
+                    System.out.println("Backup objTest");
                 }
             }
             boolean methodThenSuccessFlag = false;//used for Then sentence with "or"'s
@@ -217,7 +218,7 @@ public class StoryTesterImpl implements StoryTester {
                     try {
                         throw e.getTargetException();
                     } catch (ComparisonFailure comparisonFailure) {
-                        System.out.println("HIIIIIII ComparisonFailure");
+                        System.out.println("(ComparisonFailure)");
                         firstThenFailedExpected.add(comparisonFailure.getExpected());
                         firstThenFailedActual.add(comparisonFailure.getActual());
 
@@ -239,6 +240,8 @@ public class StoryTesterImpl implements StoryTester {
                 thenFailedCounter++;
                 //Restore from backUp:
                 objTest = objBackUp;
+                System.out.println("Backup Restoring!");
+
             }
             lastLegalSentence = currLegalSentence;
         }
