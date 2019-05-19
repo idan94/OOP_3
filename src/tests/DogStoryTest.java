@@ -2,10 +2,12 @@ package tests;
 
 import org.junit.Assert;
 
-import Solution.*;
+import Solution.Given;
+import Solution.Then;
+import Solution.When;
 
 public class DogStoryTest {
-	protected tests.Dog dog;
+	protected Dog dog;
 	@Given("a Dog of age &age")
 	public void aDog(Integer age) {
 		dog = new Dog(age);
@@ -13,6 +15,11 @@ public class DogStoryTest {
 	
 	@When("the dog is not taken out for a walk, the number of hours is &hours")
 	public void dogNotTakenForAWalk(Integer hours) {
+		dog.notTakenForAWalk(hours);
+	}
+
+	@When("the dog is not taken out for a walk, the number of hours is &hours and the time is &time")
+	public void dogNotTakenForAWalkAndTime(Integer hours, Integer time) {
 		dog.notTakenForAWalk(hours);
 	}
 	
