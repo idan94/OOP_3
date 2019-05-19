@@ -3,13 +3,11 @@ package Solution;
 import Provided.*;
 import org.junit.ComparisonFailure;
 
-import java.awt.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.stream.Collectors;
 
 public class StoryTesterImpl implements StoryTester {
@@ -18,27 +16,28 @@ public class StoryTesterImpl implements StoryTester {
         if (testClass == null) {
             throw new IllegalArgumentException();
         }
-        checkStory(story, testClass,null);
-    }
-    @Override
-    public void testOnNestedClasses(String story, Class<?> testClass) throws Exception {
-        testOnNestedClassesAux(story,testClass,null);
+        checkStory(story, testClass, null);
     }
 
-    public void testOnNestedClassesAux(String story, Class<?> testClass,Object sugarDady) throws Exception {
+    @Override
+    public void testOnNestedClasses(String story, Class<?> testClass) throws Exception {
+        testOnNestedClassesAux(story, testClass, null);
+    }
+
+    public void testOnNestedClassesAux(String story, Class<?> testClass, Object fatherObjClass) throws Exception {
         if (testClass == null) {
             throw new IllegalArgumentException();
         }
         try {
-            checkStory(story, testClass,sugarDady);
+            checkStory(story, testClass, fatherObjClass);
         } catch (GivenNotFoundException e1) {
 
             for (Class innerClass : (testClass.getClasses())) {
                 try {
                     //for each sub class, try to run the story REGULARLY until successful
                     //or until all the innerClass had run out.
-                    Object newObject = createObject(testClass,sugarDady);
-                    testOnNestedClassesAux(story, innerClass,newObject);
+                    Object newObject = createObject(testClass, fatherObjClass);
+                    testOnNestedClassesAux(story, innerClass, newObject);
                 } catch (GivenNotFoundException e2) {
                     continue;
                 }
@@ -53,7 +52,7 @@ public class StoryTesterImpl implements StoryTester {
 
     public static Method AnnotationsMethod(Class<?> testClass, LegalSentence sentence)
             throws WordNotFoundException {
-        if (testClass == null) {//TODO: check
+        if (testClass == null) {
             switch (sentence.getType()) {
                 case Given:
                     throw new GivenNotFoundException();
@@ -93,7 +92,7 @@ public class StoryTesterImpl implements StoryTester {
             case Then:
                 return func.getAnnotation(Then.class).value();
             default:
-                return "Error";//no need default; TODO: maybe to throw exception here
+                return "Error";
         }
     }
 
@@ -145,17 +144,18 @@ public class StoryTesterImpl implements StoryTester {
      *
      * @param objTest the object we want to clone/copy
      * @return the new backUp object
-     * @throws Exception //TODO
+     * @throws Exception
      */
-    private static Object makeBackUp(Object objTest, Class<?> testClass, Object sugarDady)
+    private static Object makeBackUp(Object objTest, Class<?> testClass, Object fatherObjClass)
             throws Exception {
-        Object backUp = createObject(testClass,sugarDady);
-        Field[] temp = objTest.getClass().getDeclaredFields();
-        for (Field fFrom : objTest.getClass().getDeclaredFields()) {
+        Object backUp = createObject(testClass, fatherObjClass);
+        Field[] fieldsArray = objTest.getClass().getDeclaredFields();
+        if (fieldsArray.length == 0) return objTest;//if class dont have any fields
+        for (Field fFrom : fieldsArray) {
             Object fieldTemp = new Object();
             fFrom.setAccessible(true);
             //Clone:
-            if (fFrom.get(objTest) instanceof Cloneable) {//TODO:
+            if (fFrom.get(objTest) instanceof Cloneable) {
                 Method cloneMethod = fFrom.getType().getDeclaredMethod("clone");
                 cloneMethod.setAccessible(true);
                 fieldTemp = cloneMethod.invoke(fFrom.get(objTest));
@@ -167,8 +167,8 @@ public class StoryTesterImpl implements StoryTester {
                     fieldTemp = fFrom.get(objTest);
                 }
             }
-            fFrom.set(backUp,fieldTemp);
-           // backUp.getClass().getField(fFrom.getName()).set(backUp, fieldTemp);
+            fFrom.set(backUp, fieldTemp);
+            // backUp.getClass().getField(fFrom.getName()).set(backUp, fieldTemp);
         }
         return backUp;
     }
@@ -179,12 +179,10 @@ public class StoryTesterImpl implements StoryTester {
      *
      * @param story     the story given, as String.
      * @param testClass the test class given from user, includes all the methods with annotations
-     * @throws Exception //TODO
+     * @throws Exception
      */
-    private static void checkStory(String story, Class<?> testClass,Object sugarDady) throws Exception {
-        //Object objTest = testClass.getEnclosingConstructor()
-        //TODO: find the Given from the normal class
-        Object objTest = createObject(testClass,sugarDady);
+    private static void checkStory(String story, Class<?> testClass, Object fatherObjClass) throws Exception {
+        Object objTest = createObject(testClass, fatherObjClass);
         Object objBackUp = objTest;
         int thenFailedCounter = 0;
         String firstThenFailed = "";
@@ -202,15 +200,13 @@ public class StoryTesterImpl implements StoryTester {
                         ||
                         (lastLegalSentence.getType() == LegalSentence.Type.Then
                                 && (currLegalSentence.getType() == LegalSentence.Type.When))) {
-                    objBackUp = makeBackUp(objTest, testClass, sugarDady);
-                    System.out.println("Backed up!");
+                    objBackUp = makeBackUp(objTest, testClass, fatherObjClass);
 
                 }
             }
             boolean methodThenSuccessFlag = false;//used for Then sentence with "or"'s
             for (ArrayList<String> layerOfParameters : parameters) {
                 try {
-                    System.out.println(currLegalSentence.getInput());
                     tempMethod.setAccessible(true);
                     tempMethod.invoke(objTest, fixParameters(layerOfParameters, tempMethod));
                     methodThenSuccessFlag = true;
@@ -222,20 +218,14 @@ public class StoryTesterImpl implements StoryTester {
                     try {
                         throw e.getTargetException();
                     } catch (ComparisonFailure comparisonFailure) {
-                        System.out.println("HIIIIIII ComparisonFailure");
                         if (thenFailedCounter == 0) {
                             firstThenFailedExpected.add(comparisonFailure.getExpected());
                             firstThenFailedActual.add(comparisonFailure.getActual());
                         }
 
                     } catch (Throwable throwable) {
-                        System.out.println("HIIIIIII Throwable");
                         throwable.printStackTrace();
                     }
-
-                } catch (Exception ex) {
-                    System.out.println("HIIIIIII Exception");
-
                 }
             }
             if (!methodThenSuccessFlag) { // if flag is false- means 'Then' FAILED
@@ -246,7 +236,6 @@ public class StoryTesterImpl implements StoryTester {
                 thenFailedCounter++;
                 //Restore from backUp:
                 objTest = objBackUp;
-                System.out.println("Restord");
 
             }
             lastLegalSentence = currLegalSentence;
@@ -256,17 +245,17 @@ public class StoryTesterImpl implements StoryTester {
                     firstThenFailedActual, thenFailedCounter);
         }
     }
-    private static Object createObject(Class<?> testClass, Object sugarDady) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+
+    //creates object for the main function which checks the story.
+    //needed for inheritance and inner classes issues
+    private static Object createObject(Class<?> testClass, Object fatherObjClass) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         Object objTest;
-        if(sugarDady == null)
-        {
-            objTest  = testClass.getConstructor().newInstance();
+        if (fatherObjClass == null) {
+            objTest = testClass.getConstructor().newInstance();
+        } else {
+            objTest = testClass.getConstructor(fatherObjClass.getClass()).newInstance(fatherObjClass);
         }
-        else
-        {
-            objTest = testClass.getConstructor(sugarDady.getClass()).newInstance(sugarDady);
-        }
-        return  objTest;
+        return objTest;
     }
 }
 
