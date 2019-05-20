@@ -31,7 +31,6 @@ public class StoryTesterImpl implements StoryTester {
         try {
             checkStory(story, testClass, fatherObjClass);
         } catch (GivenNotFoundException e1) {
-
             for (Class innerClass : (testClass.getClasses())) {
                 try {
                     //for each sub class, try to run the story REGULARLY until successful
@@ -114,7 +113,6 @@ public class StoryTesterImpl implements StoryTester {
         return (type == LegalSentence.Type.Given && func.getAnnotation(Given.class) != null
                 || type == LegalSentence.Type.When && func.getAnnotation(When.class) != null
                 || type == LegalSentence.Type.Then && func.getAnnotation(Then.class) != null);
-
     }
 
     /**
@@ -150,7 +148,9 @@ public class StoryTesterImpl implements StoryTester {
             throws Exception {
         Object backUp = createObject(testClass, fatherObjClass);
         Field[] fieldsArray = objTest.getClass().getDeclaredFields();
-        if (fieldsArray.length == 0) return objTest;//if class dont have any fields
+        if (fieldsArray.length == 0) {
+            return objTest;//if class dont have any fields
+        }
         for (Field fFrom : fieldsArray) {
             Object fieldTemp = new Object();
             fFrom.setAccessible(true);
@@ -168,9 +168,23 @@ public class StoryTesterImpl implements StoryTester {
                 }
             }
             fFrom.set(backUp, fieldTemp);
-            // backUp.getClass().getField(fFrom.getName()).set(backUp, fieldTemp);
         }
         return backUp;
+    }
+
+    /**
+     * restores the backup: field by field
+     * @param objTest the object we run tests on
+     * @param objBackUp the backup of the object, means before last "When" sequence
+     * @throws IllegalAccessException from ".set"
+     */
+    private static void restoreFromBackUp(Object objTest, Object objBackUp)
+            throws IllegalAccessException {
+        Field[] fieldsArray = objTest.getClass().getDeclaredFields();
+        for (Field fFrom : fieldsArray) {
+            fFrom.setAccessible(true);
+            fFrom.set(objTest, fFrom.get(objBackUp));
+        }
     }
 
     /**
@@ -201,7 +215,6 @@ public class StoryTesterImpl implements StoryTester {
                         (lastLegalSentence.getType() == LegalSentence.Type.Then
                                 && (currLegalSentence.getType() == LegalSentence.Type.When))) {
                     objBackUp = makeBackUp(objTest, testClass, fatherObjClass);
-
                 }
             }
             boolean methodThenSuccessFlag = false;//used for Then sentence with "or"'s
@@ -214,7 +227,7 @@ public class StoryTesterImpl implements StoryTester {
                     //Given/When run only one time- fine
                     //for Then- if one of them was successful, we want to stop check.
                 } catch (InvocationTargetException e) {
-                    assert (currLegalSentence.getType() == LegalSentence.Type.Then);
+                    //assert (currLegalSentence.getType() == LegalSentence.Type.Then);
                     try {
                         throw e.getTargetException();
                     } catch (ComparisonFailure comparisonFailure) {
@@ -222,21 +235,20 @@ public class StoryTesterImpl implements StoryTester {
                             firstThenFailedExpected.add(comparisonFailure.getExpected());
                             firstThenFailedActual.add(comparisonFailure.getActual());
                         }
-
                     } catch (Throwable throwable) {
-                        throwable.printStackTrace();
                     }
                 }
             }
             if (!methodThenSuccessFlag) { // if flag is false- means 'Then' FAILED
-                assert (currLegalSentence.getType() == LegalSentence.Type.Then);
-                if (thenFailedCounter == 0) {
-                    firstThenFailed = currLegalSentence.getInput();
+                //assert (currLegalSentence.getType() == LegalSentence.Type.Then);
+                if (currLegalSentence.getType() == LegalSentence.Type.Then) {
+                    if (thenFailedCounter == 0) {
+                        firstThenFailed = currLegalSentence.getInput();
+                    }
+                    thenFailedCounter++;
+                    //Restore from backUp:
+                    restoreFromBackUp(objTest, objBackUp);
                 }
-                thenFailedCounter++;
-                //Restore from backUp:
-                objTest = objBackUp;
-
             }
             lastLegalSentence = currLegalSentence;
         }
